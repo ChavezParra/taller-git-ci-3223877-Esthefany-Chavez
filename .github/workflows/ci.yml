@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    branches: [main, feat/ui-basica]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Run Prettier
+        run: npx prettier --check .
+
+      - name: Run tests
+        run: node --test
